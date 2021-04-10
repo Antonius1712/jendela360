@@ -25,8 +25,8 @@ class sellingDataRequest extends FormRequest
     {
         return [
             'customerName' => 'required',
-            'customerEmail' => 'required',
-            'customerPhone' => 'required',
+            'customerEmail' => 'required | email',
+            'customerPhone' => 'required | numeric',
             'purchasedCar' => 'required',
         ];
     }

@@ -70,6 +70,8 @@
 
 <script>
 
+    $('#carDataTable').DataTable();
+
     //ADD CAR DATA
     $('body').on('click', '#addCarBtn', function(){
         $('#saveCarBtn').show();

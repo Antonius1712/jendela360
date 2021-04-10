@@ -30,4 +30,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resource('/selling-data', 'sellingDataController');
 
     Route::get('/report', 'reportController@index');
+
+    Route::get('/teori', function(){
+        return view('teori');
+    });
 });

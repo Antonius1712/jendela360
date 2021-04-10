@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-lg-12 col-md-12">
             <button class="btn btn-success" data-type="Add" id="addCarBtn" data-toggle="modal" data-target="#myModal">Add Selling Data</button>
-            <table class="table table-bordered">
+            <table class="table table-bordered" id="sellingDataTable">
                 <thead>
                     <tr>
                         <td>Customer Name</td>
@@ -45,6 +45,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
+            
             <div class="modal-body">
                 <div class="form-group">
                     <label for="customerName">Customer Name</label>
@@ -87,12 +88,17 @@
 </div>
 
 <script>
+
+    $('#sellingDataTable').DataTable();
+
     $('body').on('click','#saveSellingDataBtn',function(){
         let url = '{{ url('/selling-data') }}';
         let customerName = $('#customerName').val();
         let customerEmail = $('#customerEmail').val();
         let customerPhone = $('#customerPhone').val();
         let purchasedCar = $('#purchasedCar').val();
+
+        $(this).attr('disabled','true');
 
         $.ajax({
             url:url,
@@ -111,6 +117,8 @@
                 location.reload();
             }
         })
+
+        $(this).attr('disabled','false');
 
         // $('#myModal').toggle();
     });

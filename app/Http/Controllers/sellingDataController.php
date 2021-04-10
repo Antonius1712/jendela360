@@ -17,8 +17,8 @@ class sellingDataController extends Controller
      */
     public function index()
     {
-        $carData = car_data::all();
-        $selling_data = selling_data::with('getCarData')->get();
+        $carData = car_data::where('carStock', '>', 0)->get();
+        $selling_data = selling_data::with('getCarData')->orderby('id','desc')->get();
 
         return view('pages/selling-data/index', compact('selling_data','carData'));
     }
@@ -42,6 +42,11 @@ class sellingDataController extends Controller
     public function store(sellingDataRequest $request)
     {
         $selling_data = selling_data::create($request->validated());
+
+        $car_data = car_data::where('id',$request->purchasedCar)->first();
+        $car_data->carStock = $car_data->carStock - 1;
+        $car_data->save();
+
         $sendMail = Mail::send(
             'layouts.email-template', 
             array('selling_data'=>$selling_data), 
